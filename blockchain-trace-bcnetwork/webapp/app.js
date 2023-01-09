@@ -23,7 +23,7 @@ app.all("*",function(req,res,next){
 //引入route模块
 const route  = require("./route/route");
 
-const port = 8080
+const port = 8083
 
 //加载route模块
 app.use("/route",route);

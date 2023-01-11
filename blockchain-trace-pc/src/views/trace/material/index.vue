@@ -6,7 +6,7 @@
 		<el-table :data="transportList">
 			<el-table-column type="selection" width="55" align="center" />
 			<el-table-column label="货物编号" prop="cropsId" />
-			<el-table-column label="农户" prop="farmerNickName" />
+			<el-table-column label="酒厂" prop="farmerNickName" />
 			<el-table-column label="原料来源" prop="farmerDept" />
 			<el-table-column label="时间" prop="time" />
 			<el-table-column label="状态" prop="outFactoryStatus">

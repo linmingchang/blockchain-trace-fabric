@@ -28,7 +28,7 @@
 			<i-col span="5" i-class="col-class"><i-tab-bar-item color="#ff9900" @click="productProcess" icon="createtask_fill" current-icon="create_fill" title="生产行为"></i-tab-bar-item></i-col>
 			<i-col span="4" i-class="col-class"><i-tab-bar-item color="#80848f" @click="traceCropsInfo" icon="shop_fill" current-icon="shop_fill" title="农产信息"></i-tab-bar-item></i-col>
 		</i-row>
-		
+
 		<!-- 生长过程 -->
 		<div v-show="showPlant" style="padding-top: 1.25rem;" v-for="(detail,index) in cropsProcessDetailsArray" :key="index">
 			<i-card :title="detail.crops_grow_id" :thumb="detail.crops_grow_photo_url">
@@ -42,7 +42,7 @@
 			</i-card>
 		</div>
 		<br>
-		
+
 		<div v-show="showDriver" style="padding-top: 1.25rem;">
 			<i-steps :current="len" direction="vertical">
 				<i-step v-for="(detail,index) in cropsDriverArray" :key="index">
@@ -55,7 +55,7 @@
 				</i-step>
 			</i-steps>
 		</div>
-		
+
 		<div v-show="showMaching" style="padding-top: 1.25rem;">
 			<i-card :title="machingInfo.machining_id" :thumb="machingInfo.testing_photo_url">
 				<view slot="footer"><i-input :value="machingInfo.leader" title="负责人" disabled /></view>
@@ -67,7 +67,7 @@
 				<view slot="footer"><i-input :value="machingInfo.remarks" title="备注" disabled /></view>
 			</i-card>
 		</div>
-		
+
 		<div v-show="showProcess" style="padding-top: 1.25rem;" v-for="(detail,index) in operationArray" :key="index">
 			<i-card :title="detail.operation_id">
 				<view slot="footer"><i-input :value="detail.operation_people_name" title="员工" disabled /></view>
@@ -77,14 +77,14 @@
 				<view slot="footer"><i-input :value="detail.remarks" title="备注" disabled /></view>
 			</i-card>
 		</div>
-		
+
 		<div v-show="showCropsInfo" style="padding-top: 1.25rem;">
 			<i-card :title="cropsDetails.crops_id">
 				<view slot="footer"><i-input :value="cropsDetails.crops_name" title="农产名字" disabled /></view>
 				<view slot="footer"><i-input :value="cropsDetails.farmer_name" title="种植户" disabled /></view>
 				<view slot="footer"><i-input :value="cropsDetails.farmer_tel" title="电话" disabled /></view>
 				<view slot="footer"><i-input :value="cropsDetails.address" title="地址" disabled /></view>
-				<view slot="footer"><i-input :value="cropsDetails.plant_mode" title="种植方式" disabled /></view>
+				<view slot="footer"><i-input :value="cropsDetails.plant_mode" title="酿造方式" disabled /></view>
 				<view slot="footer"><i-input :value="cropsDetails.year" title="年度" disabled /></view>
 				<view slot="footer"><i-input :value="cropsDetails.bagging_status" title="套袋方式" disabled /></view>
 				<view slot="footer"><i-input :value="cropsDetails.fertilizer_name" title="使用肥料" disabled /></view>
@@ -96,7 +96,7 @@
 				<view slot="footer"><i-input :value="cropsDetails.remarks" title="备注" disabled /></view>
 			</i-card>
 		</div>
-		
+
 
 	</div>
 </template>
@@ -137,7 +137,7 @@ export default {
 				})
 				.catch(err => {});
 		},
-		
+
 		productProcess(){
 			this.showProcess = true
 			this.showCropsInfo = false
@@ -157,7 +157,7 @@ export default {
 			    		this.msgError('查询异常 ' + err);
 			    	});
 		},
-		
+
 		traceCheck(){
 			this.showMaching = true
 			this.showCropsInfo = false
@@ -190,7 +190,7 @@ export default {
 				})
 				.catch(err => {});
 		},
-		
+
 		tracePlant() {
 			this.showPlant = true
 			this.showCropsInfo = false
@@ -229,7 +229,7 @@ export default {
 	},
 
 	created() {
-		
+
 	},
 
 	mounted() {

@@ -230,10 +230,10 @@
                     <el-row><el-col :span="24">年度：{{ cropsDetails.year }}</el-col></el-row><br><br>
                     <el-row><el-col :span="24">套袋方式：{{ cropsDetails.bagging_status }}</el-col></el-row><br><br>
                     <el-row><el-col :span="24">使用肥料：{{ cropsDetails.fertilizer_name }}</el-col></el-row><br><br>
-                    <el-row><el-col :span="24">育苗周期：{{ cropsDetails.grow_seedlings_cycle }}</el-col></el-row><br><br>
-                    <el-row><el-col :span="24">灌溉周期：{{ cropsDetails.irrigation_cycle }}</el-col></el-row><br><br>
-                    <el-row><el-col :span="24">除草周期：{{ cropsDetails.weed_cycle }}</el-col></el-row><br><br>
-                    <el-row><el-col :span="24">施肥周期：{{ cropsDetails.apply_fertilizer_cycle }}</el-col></el-row><br><br>
+                    <el-row><el-col :span="24">酿造周期：{{ cropsDetails.grow_seedlings_cycle }}</el-col></el-row><br><br>
+                    <el-row><el-col :span="24">贮存周期：{{ cropsDetails.irrigation_cycle }}</el-col></el-row><br><br>
+                    <el-row><el-col :span="24">酒精度：{{ cropsDetails.weed_cycle }}</el-col></el-row><br><br>
+                    <el-row><el-col :span="24">保质期：{{ cropsDetails.apply_fertilizer_cycle }}</el-col></el-row><br><br>
                     <el-row><el-col :span="24">注册时间：{{ cropsDetails.register_time }}</el-col></el-row><br><br>
                     <el-row><el-col :span="24">备注：{{ cropsDetails.remarks }}</el-col></el-row><br>
                   </el-card>

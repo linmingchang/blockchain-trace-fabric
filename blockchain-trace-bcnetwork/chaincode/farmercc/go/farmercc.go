@@ -30,7 +30,7 @@ type Crops struct {
 	FarmerTel string `json:"farmer_tel"`
 	//肥料名称
 	FertilizerName string `json:"fertilizer_name"`
-	//种植方式
+	//酿造方式
 	PlatMode string `json:"plant_mode"`
 	//是否套袋种植
 	BaggingStatus string `json:"bagging_status"`

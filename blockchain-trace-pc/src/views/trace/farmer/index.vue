@@ -2,24 +2,24 @@
 	<div class="app-container">
 
 		<el-row :gutter="10" class="mb8">
-			<el-col :span="1.5"><el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">添加作物</el-button></el-col>
+			<el-col :span="1.5"><el-button type="primary" icon="el-icon-plus" size="mini" @click="handleAdd">添加生产批次</el-button></el-col>
 			<right-toolbar :showSearch.sync="showSearch" @queryTable="getList"></right-toolbar>
 		</el-row>
 
 		<el-table v-loading="loading" :data="cropsList" @selection-change="handleSelectionChange">
 			<el-table-column type="selection" width="55" align="center" />
-			<el-table-column label="作物编号" prop="cropsId" />
-			<el-table-column label="作物名称" prop="cropsName" />
+			<el-table-column label="生产批次编号" prop="cropsId" />
+			<el-table-column label="生产批次名称" prop="cropsName" />
 			<el-table-column label="状态" prop="status">
 				<template slot-scope="scope">
-					<el-tag v-if="scope.row.status === 0">种植中</el-tag>
+					<el-tag v-if="scope.row.status === 0">酿造中</el-tag>
 					<el-tag type="danger" v-if="scope.row.status === 1">已出售</el-tag>
 				</template>
 			</el-table-column>
 			<el-table-column label="操作" align="center" class-name="small-padding fixed-width">
 				<template slot-scope="scope">
 					<el-button v-show="scope.row.status === 0" size="mini" type="text" @click="handleRecord(scope.row)">周期记录</el-button>
-					<el-button size="mini" type="text" @click="cropsDetail(scope.row)">作物详情</el-button>
+					<el-button size="mini" type="text" @click="cropsDetail(scope.row)">生产批次详情</el-button>
 					<el-button size="mini" type="text" @click="cropsProcessDetail(scope.row)">过程详情</el-button>
 					<el-button v-show="scope.row.status === 0" size="mini" type="text" @click="noticeTrasport(scope.row)">通知运输</el-button>
 					<el-button size="mini" type="text" @click="logisticsTrace(scope.row)">物流追踪</el-button>
@@ -29,8 +29,8 @@
 
 		<pagination v-show="total > 0" :total="total" :page.sync="queryParams.pageNum" :limit.sync="queryParams.pageSize" @pagination="getList" />
 
-		<!-- 记录作物生长 -->
-		<el-dialog center title="记录作物生长情况" :visible.sync="growDialog" width="700px" append-to-body>
+		<!-- 记录生产批次生长 -->
+		<el-dialog center title="记录生产批次情况" :visible.sync="growDialog" width="900px" append-to-body>
 			<el-form ref="form" label-width="80px" :model="recordForm">
 				<el-row>
 					<el-col :span="24" align="center">{{ cropsName }}</el-col>
@@ -41,15 +41,15 @@
 						<el-form-item label="温度" prop="nickName"><el-input v-model="recordForm.temperature" placeholder="请输入温度" /></el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="生长情况" prop="nickName"><el-input v-model="recordForm.growStatus" placeholder="请输入生长情况" /></el-form-item>
+						<el-form-item label="发酵情况" prop="nickName"><el-input v-model="recordForm.growStatus" placeholder="请输入发酵情况" /></el-form-item>
 					</el-col>
 				</el-row>
 				<el-row>
 					<el-col :span="12">
-						<el-form-item label="水分" prop="nickName"><el-input v-model="recordForm.waterContent" placeholder="请输入水分" /></el-form-item>
+						<el-form-item label="香度" prop="nickName"><el-input v-model="recordForm.waterContent" placeholder="请输入香度" /></el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="光照情况" prop="nickName"><el-input v-model="recordForm.illuminationStatus" placeholder="请输入光照情况" /></el-form-item>
+						<el-form-item label="湿度情况" prop="nickName"><el-input v-model="recordForm.illuminationStatus" placeholder="请输入湿度情况" /></el-form-item>
 					</el-col>
 				</el-row>
 				<el-row>
@@ -59,7 +59,7 @@
 				</el-row>
 				<el-row>
 					<el-col :span="12">
-						<el-form-item label="生长图片:">
+						<el-form-item label="酿造图片:">
 							<el-upload class="avatar-uploader" :on-change="getFile" :show-file-list="false" :auto-upload="false">
 								<img v-if="imageUrl" :src="imageUrl" class="avatar" />
 								<i v-else class="el-icon-plus avatar-uploader-icon"></i>
@@ -74,15 +74,15 @@
 			</div>
 		</el-dialog>
 
-		<!-- 添加或修改农作物对话框 -->
+		<!-- 添加或修改农生产批次对话框 -->
 		<el-dialog :title="title" :visible.sync="open" width="700px" append-to-body>
 			<el-form ref="form" :model="form" :rules="rules" label-width="80px">
 				<el-row>
 					<el-col :span="12">
-						<el-form-item label="作物名称" prop="nickName"><el-input v-model="form.cropsName" placeholder="请输入作物名称" /></el-form-item>
+						<el-form-item label="生产批次名称" prop="nickName"><el-input v-model="form.cropsName" placeholder="请输入生产批次名称" /></el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="作物类型" prop="nickName">
+						<el-form-item label="白酒类型" prop="nickName">
 							<el-select v-model="form.cropsType" placeholder="请选择">
 								<el-option v-for="dict in cropsTypeOptions" :key="dict.dictValue" :label="dict.dictLabel" :value="dict.dictValue"></el-option>
 							</el-select>
@@ -91,10 +91,10 @@
 				</el-row>
 				<el-row>
 					<el-col :span="12">
-						<el-form-item label="肥料名称" prop="nickName"><el-input v-model="form.fertilizerName" placeholder="请输入肥料名称" /></el-form-item>
+						<el-form-item label="品名" prop="nickName"><el-input v-model="form.fertilizerName" placeholder="请输入品名" /></el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="种植方式" prop="nickName">
+						<el-form-item label="酿造方式" prop="nickName">
 							<el-select v-model="form.plantMode" placeholder="请选择">
 								<el-option v-for="dict in plantModeOptions" :key="dict.dictValue" :label="dict.dictLabel" :value="dict.dictValue"></el-option>
 							</el-select>
@@ -103,10 +103,10 @@
 				</el-row>
 				<el-row>
 					<el-col :span="12">
-						<el-form-item label="种植年度" prop="nickName"><el-input v-model="form.year" placeholder="请输入种植年度" /></el-form-item>
+						<el-form-item label="酿造年度" prop="nickName"><el-input v-model="form.year" placeholder="请输入酿造年度" /></el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="是否套袋" prop="nickName">
+						<el-form-item label="是否纯粮酿造" prop="nickName">
 							<el-select v-model="form.baggingStatus" placeholder="请选择">
 								<el-option v-for="dict in beggingOptions" :key="dict.dictValue" :label="dict.dictLabel" :value="dict.dictValue"></el-option>
 							</el-select>
@@ -115,23 +115,23 @@
 				</el-row>
 				<el-row>
 					<el-col :span="12">
-						<el-form-item label="育苗周期" prop="nickName"><el-input v-model="form.growSeedlingsCycle" placeholder="请输入育苗周期" /></el-form-item>
+						<el-form-item label="酿造周期" prop="nickName"><el-input v-model="form.growSeedlingsCycle" placeholder="请输入酿造周期" /></el-form-item>
 					</el-col>
 					<el-col :span="12">
-						<el-form-item label="灌溉周期" prop="nickName"><el-input v-model="form.irrigationCycle" placeholder="请输入灌溉周期" /></el-form-item>
-					</el-col>
-				</el-row>
-				<el-row>
-					<el-col :span="12">
-						<el-form-item label="施肥周期" prop="nickName"><el-input v-model="form.applyFertilizerCycle" placeholder="请输入施肥周期" /></el-form-item>
-					</el-col>
-					<el-col :span="12">
-						<el-form-item label="除草周期" prop="nickName"><el-input v-model="form.weedCycle" placeholder="请输入除草周期" /></el-form-item>
+						<el-form-item label="贮存周期" prop="nickName"><el-input v-model="form.irrigationCycle" placeholder="请输入贮存周期" /></el-form-item>
 					</el-col>
 				</el-row>
 				<el-row>
 					<el-col :span="12">
-						<el-form-item label="详细地址" prop="nickName"><el-input v-model="form.address" placeholder="请输入详细地址" /></el-form-item>
+						<el-form-item label="保质期" prop="nickName"><el-input v-model="form.applyFertilizerCycle" placeholder="请输入保质期" /></el-form-item>
+					</el-col>
+					<el-col :span="12">
+						<el-form-item label="酒精度" prop="nickName"><el-input v-model="form.weedCycle" placeholder="请输入酒精度" /></el-form-item>
+					</el-col>
+				</el-row>
+				<el-row>
+					<el-col :span="12">
+						<el-form-item label="酒厂地址" prop="nickName"><el-input v-model="form.address" placeholder="请输入酒厂地址" /></el-form-item>
 					</el-col>
 				</el-row>
 				<el-form-item label="备注"><el-input v-model="form.remarks" type="textarea" placeholder="请输入内容"></el-input></el-form-item>
@@ -142,40 +142,40 @@
 			</div>
 		</el-dialog>
 
-		<!-- 作物详情 -->
-		<el-dialog center title="农作物链上数据详情" :visible.sync="cropsDetaiDialog" width="700px" append-to-body>
+		<!-- 生产批次详情 -->
+		<el-dialog center title="农生产批次链上数据详情" :visible.sync="cropsDetaiDialog" width="700px" append-to-body>
 			<el-row>
-				<el-col :span="12">农作物ID：{{ cropsDetails.crops_id }}</el-col>
-				<el-col :span="12">农作物名称：{{ cropsDetails.crops_name }}</el-col>
+				<el-col :span="12">生产批次ID：{{ cropsDetails.crops_id }}</el-col>
+				<el-col :span="12">生产批次名称：{{ cropsDetails.crops_name }}</el-col>
 			</el-row>
 			<el-divider></el-divider>
 			<el-row>
 				<el-col :span="12">地址：{{ cropsDetails.address }}</el-col>
-				<el-col :span="12">农户：{{ cropsDetails.farmer_name }}</el-col>
+				<el-col :span="12">酒厂：{{ cropsDetails.farmer_name }}</el-col>
 			</el-row>
 			<el-divider></el-divider>
 			<el-row>
-				<el-col :span="12">施肥情况：{{ cropsDetails.apply_fertilizer_cycle }}</el-col>
-				<el-col :span="12">种植方式：{{ cropsDetails.plant_mode }}</el-col>
+				<el-col :span="12">保质期：{{ cropsDetails.apply_fertilizer_cycle }}</el-col>
+				<el-col :span="12">酿造方式：{{ cropsDetails.plant_mode }}</el-col>
 			</el-row>
 			<el-divider></el-divider>
 			<el-row>
-				<el-col :span="12">肥料名称：{{ cropsDetails.fertilizer_name }}</el-col>
-				<el-col :span="12">是否套袋种植：{{ cropsDetails.bagging_status }}</el-col>
+				<el-col :span="12">品名：{{ cropsDetails.fertilizer_name }}</el-col>
+				<el-col :span="12">是否纯粮酿造：{{ cropsDetails.bagging_status }}</el-col>
 			</el-row>
 			<el-divider></el-divider>
 			<el-row>
-				<el-col :span="12">农户电话：{{ cropsDetails.farmer_tel }}</el-col>
-				<el-col :span="12">种植年度：{{ cropsDetails.year }}</el-col>
+				<el-col :span="12">酒厂电话：{{ cropsDetails.farmer_tel }}</el-col>
+				<el-col :span="12">酿造年度：{{ cropsDetails.year }}</el-col>
 			</el-row>
 			<el-divider></el-divider>
 			<el-row>
-				<el-col :span="12">育苗周期：{{ cropsDetails.grow_seedlings_cycle }}</el-col>
-				<el-col :span="12">灌溉周期：{{ cropsDetails.irrigation_cycle }}</el-col>
+				<el-col :span="12">酿造周期：{{ cropsDetails.grow_seedlings_cycle }}</el-col>
+				<el-col :span="12">贮存周期：{{ cropsDetails.irrigation_cycle }}</el-col>
 			</el-row>
 			<el-divider></el-divider>
 			<el-row>
-				<el-col :span="12">除草周期：{{ cropsDetails.weed_cycle }}</el-col>
+				<el-col :span="12">酒精度：{{ cropsDetails.weed_cycle }}</el-col>
 				<el-col :span="12">登记时间：{{ cropsDetails.register_time }}</el-col>
 			</el-row>
 			<el-divider></el-divider>
@@ -186,10 +186,10 @@
 
 		<!-- 过程详情 -->
 		<el-drawer size="80%" :visible.sync="cropsProcessDetaiDialog" :show-close="false" :with-header="false">
-			<el-divider content-position="left">农作物链上过程详情</el-divider>
+			<el-divider content-position="left">农生产批次链上过程详情</el-divider>
 			<el-table v-loading="loading" :data="cropsProcessDetailsArray">
 				<el-table-column label="过程ID" prop="crops_grow_id" />
-				<el-table-column label="作物ID" prop="crops_bak_id" />
+				<el-table-column label="生产批次ID" prop="crops_bak_id" />
 				<el-table-column label="生长状态" prop="grow_status" />
 				<el-table-column label="光照情况" prop="illumination_status" />
 				<el-table-column label="记录时间" prop="record_time" />
@@ -292,10 +292,10 @@ export default {
 			statusOptions: ['在种', '停种'],
 
 			beggingOptions: [],
-			plantModeOptions: [], //种植方式
-			cropsTypeOptions: [], //作物类型
+			plantModeOptions: [], //酿造方式
+			cropsTypeOptions: [], //白酒类型
 
-			growDialog: false, //z作物生长记录弹出框
+			growDialog: false, //z生产批次生长记录弹出框
 			cropsName: '',
 			cropsDetaiDialog: false,
 
@@ -569,7 +569,7 @@ export default {
 			this.growDialog = true;
 		},
 
-		/** 查询作物列表 */
+		/** 查询生产批次列表 */
 		getCropsList() {
 			this.loading = true;
 			listCrops(this.$store.getters.name).then(response => {
@@ -580,7 +580,7 @@ export default {
 		},
 
 		/**
-		 * 作物详情
+		 * 生产批次详情
 		 */
 		cropsDetail(row) {
 			this.$httpBlock
@@ -722,7 +722,7 @@ export default {
 			this.reset();
 			this.getMenuTreeselect();
 			this.open = true;
-			this.title = '记录作物';
+			this.title = '记录生产批次';
 		},
 		/** 修改按钮操作 */
 		handleUpdate(row) {
@@ -737,7 +737,7 @@ export default {
 						this.$refs.menu.setCheckedKeys(res.checkedKeys);
 					});
 				});
-				this.title = '修改作物';
+				this.title = '修改生产批次';
 			});
 		},
 		/** 分配数据权限操作 */

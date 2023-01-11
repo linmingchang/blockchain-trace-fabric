@@ -25,7 +25,7 @@
 			<div align="center">
 			<i class="el-icon-top"></i>
 			<br>
-			</div>			
+			</div>
 			<el-card>
 				<el-row>
 					<el-col :span="24">区块编号：{{ previousBlockInfo.data.header.number }}</el-col>
@@ -43,7 +43,7 @@
 			<i class="el-icon-top"></i>
 			<br>
 			</div>
-			
+
 			<el-card>
 				<el-row>
 					<el-col :span="24">区块编号：{{ previousBlockInfo2.data.header.number }}</el-col>
@@ -58,9 +58,9 @@
 				</el-row>
 			</el-card>
 
-			
+
 		</el-card>
-		
+
 		<el-card style="width: 27%;height: 100%;margin-left: 15px;float: right;">
 			<div align="center">
 				<font color="cornflowerblue">区块链网络信息</font>
@@ -78,9 +78,9 @@
 			<el-card style="width: 100%;">
 				<div align="center">
 					节点<br><br>
-				证书节点:<el-tag type="danger">ca.trace.com</el-tag>&nbsp;&nbsp;&nbsp;<br><br>	
+				证书节点:<el-tag type="danger">ca.trace.com</el-tag>&nbsp;&nbsp;&nbsp;<br><br>
 				共识节点:<el-tag type="warning">orderer.trace.com</el-tag>&nbsp;&nbsp;&nbsp;<br><br>
-				农户节点:<el-tag>peer0.org1.trace.com</el-tag>&nbsp;&nbsp;&nbsp;<br><br>
+				酒厂节点:<el-tag>peer0.org1.trace.com</el-tag>&nbsp;&nbsp;&nbsp;<br><br>
 				原料厂商节点:<el-tag>peer0.org2.trace.com</el-tag>&nbsp;&nbsp;&nbsp;<br><br>
 				生产厂商节点:<el-tag>peer0.org3.trace.com</el-tag>&nbsp;&nbsp;&nbsp;<br><br>
 				零售商节点:<el-tag>peer0.org4.trace.com</el-tag>&nbsp;&nbsp;&nbsp;<br><br>
@@ -88,9 +88,9 @@
 				</div>
 			</el-card>
 		</el-card>
-		
+
 		<el-dialog center title="详情" :visible.sync="open" width="900px" append-to-body>
-			<json-viewer :value="blockInfoHash" expand-depth=5 copyable boxed></json-viewer>	
+			<json-viewer :value="blockInfoHash" expand-depth=5 copyable boxed></json-viewer>
 		</el-dialog>
 	</div>
 </template>
@@ -121,7 +121,7 @@
 				}).catch(err => {
 					console.log("err "+err)
 				})
-				
+
 				//前一个区块
 				var previous = Number(this.channelBlockInfo.data.height.low - 2);
 				this.$httpBlock.get(this.$httpUrl+"/blockexplorerapi/queryBlockInfo?number="+previous)
@@ -130,7 +130,7 @@
 				}).catch(err => {
 					console.log("err "+err)
 				})
-				
+
 				//前2个区块
 				var previous2 = Number(this.channelBlockInfo.data.height.low - 3);
 				this.$httpBlock.get(this.$httpUrl+"/blockexplorerapi/queryBlockInfo?number="+previous2)
@@ -139,11 +139,11 @@
 				}).catch(err => {
 					console.log("err "+err)
 				})
-				
+
 			}).catch(err => {
 				console.log("err "+err)
 			})
-			
+
 			//this.getHash();
 		},
 		methods:{
@@ -156,7 +156,7 @@
 					console.log("err "+err)
 				})
 			},
-			
+
 			getHash(){
 				var number = Number(this.channelBlockInfo.data.height.low );
 				this.$httpBlock.get(this.$httpUrl+"/blockexplorerapi/queryBlockInfo?number="+number)
@@ -166,11 +166,11 @@
 					console.log("err "+err)
 				})
 			},
-			
+
 			queryBlockByNum(){
 				this.queryBlockByNumDrawer = true;
 			}
-			
+
 		},
 	}
 </script>
